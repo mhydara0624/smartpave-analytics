@@ -1,0 +1,49 @@
+# Snowflake Configuration for SmartPave Analytics
+# This file contains configuration settings for Snowflake integration
+
+# Database and Schema Configuration
+database: "DOT_workshop_test"
+schema: "smartpave_analytics"
+
+# Compute Configuration
+compute_pool_cpu: "smartpave_compute"
+compute_pool_gpu: "smartpave_gpu"
+warehouse_size: "4X-LARGE"
+
+# Data Storage
+raw_data_stage: "@smartpave_stage/raw/"
+processed_data_stage: "@smartpave_stage/processed/"
+models_stage: "@smartpave_stage/models/"
+
+# Model Configuration
+model_parameters:
+  degradation_model:
+    algorithm: "xgboost"
+    n_estimators: 1000
+    max_depth: 8
+    learning_rate: 0.1
+  
+  cost_model:
+    algorithm: "random_forest"
+    n_estimators: 500
+    max_depth: 10
+  
+  priority_model:
+    algorithm: "gradient_boosting"
+    n_estimators: 300
+    learning_rate: 0.05
+
+# Optimization Settings
+optimization:
+  budget_constraint: 50000000  # $50M annual budget
+  min_condition_threshold: 60
+  max_repair_cost: 100000
+  roi_threshold: 0.15
+
+# Visualization Settings
+visualization:
+  map_center:
+    latitude: 39.8283
+    longitude: -98.5795
+  zoom_level: 4
+  color_scheme: "RdYlGn_r"
