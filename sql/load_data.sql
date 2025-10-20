@@ -32,7 +32,8 @@ ON_ERROR = 'CONTINUE';
 COPY INTO traffic_data
 FROM @smartpave_stage/traffic_volume_data.csv
 FILE_FORMAT = (FORMAT_NAME = csv_format)
-ON_ERROR = 'CONTINUE';
+ON_ERROR = 'CONTINUE'
+ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE;
 
 -- Verify data loading
 SELECT 'Road Network' as table_name, COUNT(*) as record_count FROM road_network

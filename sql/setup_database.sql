@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS maintenance_records (
 
 -- Create traffic data table
 CREATE TABLE IF NOT EXISTS traffic_data (
-    record_id VARCHAR(50) PRIMARY KEY,
     road_id VARCHAR(50),
     segment_id VARCHAR(50),
     year INTEGER,
