@@ -12,6 +12,15 @@ CREATE STAGE IF NOT EXISTS smartpave_stage;
 CREATE STAGE IF NOT EXISTS smartpave_processed;
 CREATE STAGE IF NOT EXISTS smartpave_models;
 
+-- Create file format for CSV loading
+CREATE OR REPLACE FILE FORMAT csv_format
+    TYPE = CSV
+    FIELD_DELIMITER = ','
+    SKIP_HEADER = 1
+    NULL_IF = ('NULL', 'null')
+    EMPTY_FIELD_AS_NULL = TRUE
+    FIELD_OPTIONALLY_ENCLOSED_BY = '"';
+
 -- Create road network table
 CREATE TABLE IF NOT EXISTS road_network (
     segment_id VARCHAR(50) PRIMARY KEY,

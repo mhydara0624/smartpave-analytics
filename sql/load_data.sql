@@ -4,15 +4,6 @@
 USE DATABASE DOT_workshop_test;
 USE SCHEMA smartpave_analytics;
 
--- Create file format for CSV loading
-CREATE OR REPLACE FILE FORMAT csv_format
-    TYPE = CSV
-    FIELD_DELIMITER = ','
-    SKIP_HEADER = 1
-    NULL_IF = ('NULL', 'null')
-    EMPTY_FIELD_AS_NULL = TRUE
-    FIELD_OPTIONALLY_ENCLOSED_BY = '"';
-
 -- Upload data files to stages (run these commands from SnowSQL or Snowsight)
 -- PUT file://data/raw/road_network.csv @smartpave_stage/;
 -- PUT file://data/raw/pavement_condition_2020-2024.csv @smartpave_stage/;
