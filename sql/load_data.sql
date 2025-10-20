@@ -4,34 +4,43 @@
 USE DATABASE DOT_workshop_test;
 USE SCHEMA smartpave_analytics;
 
+-- Create file format for CSV loading
+CREATE OR REPLACE FILE FORMAT csv_format
+    TYPE = CSV
+    FIELD_DELIMITER = ','
+    SKIP_HEADER = 1
+    NULL_IF = ('NULL', 'null')
+    EMPTY_FIELD_AS_NULL = TRUE
+    FIELD_OPTIONALLY_ENCLOSED_BY = '"';
+
 -- Upload data files to stages (run these commands from SnowSQL or Snowsight)
--- PUT file://data/raw/road_network.csv @smartpave_stage/raw/;
--- PUT file://data/raw/pavement_condition_2020-2024.csv @smartpave_stage/raw/;
--- PUT file://data/raw/maintenance_records_2020-2024.csv @smartpave_stage/raw/;
--- PUT file://data/raw/traffic_volume_data.csv @smartpave_stage/raw/;
+-- PUT file://data/raw/road_network.csv @smartpave_stage/;
+-- PUT file://data/raw/pavement_condition_2020-2024.csv @smartpave_stage/;
+-- PUT file://data/raw/maintenance_records_2020-2024.csv @smartpave_stage/;
+-- PUT file://data/raw/traffic_volume_data.csv @smartpave_stage/;
 
 -- Load road network data
 COPY INTO road_network
-FROM @smartpave_stage/raw/road_network.csv
-FILE_FORMAT = (TYPE = 'CSV', SKIP_HEADER = 1, FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+FROM @smartpave_stage/road_network.csv
+FILE_FORMAT = (FORMAT_NAME = csv_format)
 ON_ERROR = 'CONTINUE';
 
 -- Load pavement condition data
 COPY INTO pavement_condition
-FROM @smartpave_stage/raw/pavement_condition_2020-2024.csv
-FILE_FORMAT = (TYPE = 'CSV', SKIP_HEADER = 1, FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+FROM @smartpave_stage/pavement_condition_2020-2024.csv
+FILE_FORMAT = (FORMAT_NAME = csv_format)
 ON_ERROR = 'CONTINUE';
 
 -- Load maintenance records data
 COPY INTO maintenance_records
-FROM @smartpave_stage/raw/maintenance_records_2020-2024.csv
-FILE_FORMAT = (TYPE = 'CSV', SKIP_HEADER = 1, FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+FROM @smartpave_stage/maintenance_records_2020-2024.csv
+FILE_FORMAT = (FORMAT_NAME = csv_format)
 ON_ERROR = 'CONTINUE';
 
 -- Load traffic data
 COPY INTO traffic_data
-FROM @smartpave_stage/raw/traffic_volume_data.csv
-FILE_FORMAT = (TYPE = 'CSV', SKIP_HEADER = 1, FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+FROM @smartpave_stage/traffic_volume_data.csv
+FILE_FORMAT = (FORMAT_NAME = csv_format)
 ON_ERROR = 'CONTINUE';
 
 -- Verify data loading

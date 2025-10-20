@@ -8,9 +8,9 @@ CREATE SCHEMA IF NOT EXISTS smartpave_analytics;
 USE SCHEMA smartpave_analytics;
 
 -- Create stages for data storage
-CREATE STAGE IF NOT EXISTS @smartpave_stage/raw/;
-CREATE STAGE IF NOT EXISTS @smartpave_stage/processed/;
-CREATE STAGE IF NOT EXISTS @smartpave_stage/models/;
+CREATE STAGE IF NOT EXISTS smartpave_stage;
+CREATE STAGE IF NOT EXISTS smartpave_processed;
+CREATE STAGE IF NOT EXISTS smartpave_models;
 
 -- Create road network table
 CREATE TABLE IF NOT EXISTS road_network (
